@@ -5,23 +5,20 @@
 
 /dts-v1/;
 
-#include "ipq8074.dtsi"
-#include "ipq8074-hk-cpu.dtsi"
-#include "ipq8074-ess.dtsi"
+#include "ipq8074-netgear-orbi.dtsi"
+#include "ipq8074-nss.dtsi"
 #include <dt-bindings/gpio/gpio.h>
 #include <dt-bindings/input/input.h>
 #include <dt-bindings/leds/common.h>
 
 / {
 	aliases {
-		led-boot = &lp5562_white;
-		led-failsafe = &lp5562_red;
-		led-upgrade = &lp5562_blue;
-		serial0 = &blsp1_uart5;
+		led-boot = &led_front_white;
+		led-failsafe = &led_front_red;
+		led-upgrade = &led_front_blue;
 	};
 
 	chosen {
-		stdout-path = "serial0:115200n8";
 		bootargs-append = " ubi.mtd=rootfs root=/dev/ubiblock0_1";
 	};
 
@@ -59,119 +56,25 @@
 	};
 };
 
-&blsp1_uart5 {
-	status = "okay";
-};
-
-&prng {
-	status = "okay";
-};
-
-&edma {
-	status = "okay";
-};
-
-&tlmm {
-	mdio_pins: mdio-pins {
-		mdc {
-			pins = "gpio68";
-			function = "mdc";
-			drive-strength = <8>;
-			bias-pull-up;
-		};
-
-		mdio {
-			pins = "gpio69";
-			function = "mdio";
-			drive-strength = <8>;
-			bias-pull-up;
-		};
-	};
-};
-
-&uniphy0 {
-	status = "okay";
-};
-
-&switch {
-	status = "okay";
-};
-
-&mdio {
-	status = "okay";
-	pinctrl-0 = <&mdio_pins>;
-	pinctrl-names = "default";
-	reset-gpios = <&tlmm 37 GPIO_ACTIVE_LOW>;
-
-	phys: ethernet-phy-package@0 {
-		#address-cells = <1>;
-		#size-cells = <0>;
-		compatible = "qcom,qca8075-package";
-		reg = <0>;
-
-		phy0: ethernet-phy@0 {
-			compatible = "ethernet-phy-ieee802.3-c22";
-			reg = <0>;
-		};
-
-		phy1: ethernet-phy@1 {
-			compatible = "ethernet-phy-ieee802.3-c22";
-			reg = <1>;
-		};
-
-		phy3: ethernet-phy@3 {
-			compatible = "ethernet-phy-ieee802.3-c22";
-			reg = <3>;
-		};
-	};
-};
-
-&qpic_bam {
-	status = "okay";
-};
-
 &qpic_nand {
-	status = "okay";
-
-	nand@0 {
-		reg = <0>;
-		nand-ecc-strength = <4>;
-		nand-ecc-step-size = <512>;
-		nand-bus-width = <8>;
-
-		partitions {
-			compatible = "qcom,smem-part";
-
-			partition-board_data {
-				label = "board_data";
-
-				nvmem-layout {
-					compatible = "fixed-layout";
-					#address-cells = <1>;
-					#size-cells = <1>;
-
-					macaddr_boarddata: macaddr@40 {
-						compatible = "mac-base";
-						reg = <0x40 0x6>;
-						#nvmem-cell-cells = <1>;
-					};
-				};
-			};
-
-			partition-0-appsblenv {
-				label = "0:appsblenv";
-
-				nvmem-layout {
-					compatible = "u-boot,env";
-					env-size = <0x40000>;
-				};
-			};
-		};
-	};
+	/delete-node/ partitions;
 };
 
-&wifi {
-	status = "okay";
+&phys {
+	phy0: ethernet-phy@0 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		reg = <0>;
+	};
+
+	phy1: ethernet-phy@1 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		reg = <1>;
+	};
+
+	phy3: ethernet-phy@3 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		reg = <3>;
+	};
 };
 
 &blsp1_i2c2 {
@@ -184,7 +87,7 @@
 		#address-cells = <1>;
 		#size-cells = <0>;
 
-		lp5562_red: led@0 {
+		led_front_red: led@0 {
 			chan-name = "lp5562_red";
 			led-cur = [20];
 			max-cur = [60];
@@ -193,7 +96,7 @@
 			reg = <0>;
 		};
 
-		lp5562_green: led@1 {
+		led_front_green: led@1 {
 			chan-name = "lp5562_green";
 			led-cur = [20];
 			max-cur = [60];
@@ -202,7 +105,7 @@
 			reg = <1>;
 		};
 
-		lp5562_blue: led@2 {
+		led_front_blue: led@2 {
 			chan-name = "lp5562_blue";
 			led-cur = [20];
 			max-cur = [60];
@@ -211,7 +114,7 @@
 			reg = <2>;
 		};
 
-		lp5562_white: led@3 {
+		led_front_white: led@3 {
 			chan-name = "lp5562_white";
 			led-cur = [20];
 			max-cur = [60];
