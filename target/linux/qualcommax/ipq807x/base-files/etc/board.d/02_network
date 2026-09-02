@@ -56,6 +56,12 @@ ipq807x_setup_interfaces()
 	netgear,rbs850)
 		ucidef_set_interface_lan "lan1 lan2 lan3 lan4" "dhcp"
 		;;
+	netgear,rbse960)
+		ucidef_set_interface_lan "lan1 lan2 lan3 lan4" "dhcp"
+		;;
+	netgear,rbre960)
+		ucidef_set_interfaces_lan_wan "lan1 lan2 lan3 lan4" "wan"
+		;;
 	netgear,sxr80|\
 	netgear,sxs80)
 		ucidef_set_interfaces_lan_wan "lan2 lan3 lan4 lan5" "wan"
@@ -116,6 +122,17 @@ ipq807x_setup_macs()
 	tplink,eap660hd-v1)
 		label_mac=$(get_mac_binary /tmp/factory_data/default-mac 0)
 		lan_mac=$label_mac
+		;;
+	netgear,rbre960)
+		label_mac=$(get_mac_label_dt)
+		ucidef_set_network_device_mac "lan1" "$label_mac"
+		ucidef_set_network_device_mac "lan2" "$(macaddr_setbit_la "$(macaddr_add "$label_mac" 1)")"
+		ucidef_set_network_device_mac "lan3" "$(macaddr_setbit_la "$(macaddr_add "$label_mac" 2)")"
+		ucidef_set_network_device_mac "lan4" "$(macaddr_setbit_la "$(macaddr_add "$label_mac" 3)")"
+		ucidef_set_network_device_mac "wan" "$(macaddr_add "$label_mac" 1)"
+		;;
+	netgear,rbse960)
+		label_mac=$(get_mac_label_dt)
 		;;
 	zyxel,nwa110ax|\
 	zyxel,nwa210ax)
