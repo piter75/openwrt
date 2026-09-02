@@ -182,6 +182,8 @@ platform_do_upgrade() {
 	netgear,rax120v2|\
 	netgear,rbr750|\
 	netgear,rbr850|\
+	netgear,rbre960|\
+	netgear,rbse960|\
 	netgear,rbs750|\
 	netgear,rbs850|\
 	netgear,sxr80|\
