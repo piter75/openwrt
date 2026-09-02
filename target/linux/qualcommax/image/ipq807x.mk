@@ -341,6 +341,38 @@ define Device/netgear_rbr850
 endef
 TARGET_DEVICES += netgear_rbr850
 
+define Device/netgear_rbxe960
+	$(call Device/FitImage)
+	$(call Device/UbiFit)
+	DEVICE_VENDOR := Netgear
+	DEVICE_DTS_CONFIG := config@hk01
+	DEVICE_PACKAGES += ipq-wifi-netgear_rbre960 kmod-ath11k-pci ath11k-firmware-qcn9074
+	SOC := ipq8074
+	BLOCKSIZE := 128k
+	PAGESIZE := 2048
+	NAND_SIZE := 512m
+	NETGEAR_FLASH_SCRIPT := netgear_orbi_ipq807x.bootscript
+	IMAGES += factory.chk
+	IMAGE/factory.chk := append-ubi | netgear-orbi-ipq807x-qsdk-factory | \
+		netgear-chk
+endef
+
+define Device/netgear_rbre960
+	$(call Device/netgear_rbxe960)
+	DEVICE_MODEL := RBRE960
+	IMAGE_SIZE := 109m
+	NETGEAR_BOARD_ID := U12H451T00_NETGEAR
+endef
+TARGET_DEVICES += netgear_rbre960
+
+define Device/netgear_rbse960
+	$(call Device/netgear_rbxe960)
+	DEVICE_MODEL := RBSE960
+	IMAGE_SIZE := 68096k
+	NETGEAR_BOARD_ID := U12H452T00_NETGEAR
+endef
+TARGET_DEVICES += netgear_rbse960
+
 define Device/netgear_rbs850
 	$(call Device/netgear_rbx850)
 	DEVICE_MODEL := RBS850

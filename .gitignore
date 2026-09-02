@@ -14,6 +14,8 @@
 /feeds
 /feeds.conf
 /files
+/package/firmware/ipq-wifi/src/board-netgear_rbre960.ipq8074
+/package/firmware/ipq-wifi/src/board-netgear_rbre960.qcn9074
 /target/linux/feeds
 /overlay
 /package/feeds

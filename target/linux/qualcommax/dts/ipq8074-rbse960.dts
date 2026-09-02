@@ -1,0 +1,10 @@
+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
+
+/dts-v1/;
+
+#include "ipq8074-rbxe960.dtsi"
+
+/ {
+	model = "Netgear RBSE960";
+	compatible = "netgear,rbse960", "qcom,ipq8074";
+};
