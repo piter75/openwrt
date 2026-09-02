@@ -77,6 +77,24 @@ case "$FIRMWARE" in
 		ath11k_patch_mac $(macaddr_add $label_mac 4) 2
 		ath11k_set_macflag
 		;;
+	netgear,rbre960)
+		caldata_extract "0:art" 0x1000 0x20000
+		label_mac=$(get_mac_label_dt)
+		ath11k_patch_mac $(macaddr_add $label_mac 3) 0
+		ath11k_patch_mac $(macaddr_add $label_mac 2) 1
+		ath11k_patch_mac $(macaddr_add $label_mac 4) 2
+		ath11k_remove_regdomain /lib/firmware/$FIRMWARE
+		ath11k_set_macflag
+		;;
+	netgear,rbse960)
+		caldata_extract "0:art" 0x1000 0x20000
+		label_mac=$(get_mac_label_dt)
+		ath11k_patch_mac $(macaddr_add $label_mac 2) 0
+		ath11k_patch_mac $(macaddr_add $label_mac 1) 1
+		ath11k_patch_mac $(macaddr_add $label_mac 3) 2
+		ath11k_remove_regdomain /lib/firmware/$FIRMWARE
+		ath11k_set_macflag
+		;;
 	netgear,rbs850)
 		caldata_extract "0:art" 0x1000 0x20000
 		label_mac=$(get_mac_label_dt)
@@ -175,6 +193,20 @@ case "$FIRMWARE" in
 		;;
 	prpl,haze)
 		caldata_extract_mmc "0:ART" 0x26800 0x20000
+		;;
+	netgear,rbre960)
+		caldata_extract "0:art" 0x26800 0x20000
+		label_mac=$(get_mac_label_dt)
+		ath11k_patch_mac $(macaddr_add $label_mac 5) 0
+		ath11k_remove_regdomain /lib/firmware/$FIRMWARE
+		ath11k_set_macflag
+		;;
+	netgear,rbse960)
+		caldata_extract "0:art" 0x26800 0x20000
+		label_mac=$(get_mac_label_dt)
+		ath11k_patch_mac $(macaddr_add $label_mac 4) 0
+		ath11k_remove_regdomain /lib/firmware/$FIRMWARE
+		ath11k_set_macflag
 		;;
 	xiaomi,ax9000)
 		caldata_extract "0:art" 0x26800 0x20000
