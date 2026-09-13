@@ -24,7 +24,7 @@ define Build/asus-trx
 	mv $@.new $@
 endef
 
-define Build/netgear-rbx750_850-qsdk-ipq-factory
+define Build/netgear-orbi-ipq807x-qsdk-factory
 	$(CP) $(NETGEAR_FLASH_SCRIPT) $(KDIR_TMP)/
 
 	echo "VERSION : V8.0.0.0_$(LINUX_VERSION)" > $@.metadata
@@ -302,9 +302,9 @@ define Device/netgear_rbx750_850
 	DEVICE_PACKAGES := kmod-leds-lp5562
 	BLOCKSIZE := 128k
 	PAGESIZE := 2048
-	NETGEAR_FLASH_SCRIPT := netgear_rbx750_850.bootscript
+	NETGEAR_FLASH_SCRIPT := netgear_orbi_ipq807x.bootscript
 	IMAGES += factory.chk
-	IMAGE/factory.chk := append-ubi | netgear-rbx750_850-qsdk-ipq-factory | \
+	IMAGE/factory.chk := append-ubi | netgear-orbi-ipq807x-qsdk-factory | \
 		netgear-chk
 endef
 
