@@ -2,6 +2,7 @@
 /* Common hardware description for the Netgear RBRE960 and RBSE960. */
 
 #include "ipq8074-netgear-orbi.dtsi"
+#include "ipq8074-nss.dtsi"
 #include <dt-bindings/input/input.h>
 #include <dt-bindings/leds/common.h>
 
